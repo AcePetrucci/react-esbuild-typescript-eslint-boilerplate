@@ -1,0 +1,1 @@
+# react-esbuild-typescript-eslint-boilerplate
