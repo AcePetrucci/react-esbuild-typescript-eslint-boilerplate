@@ -1,3 +1,6 @@
+/* eslint @typescript-eslint/no-var-requires: 0 */
+/* eslint no-console: 0 */
+
 const esbuild = require('esbuild');
 const servor = require('servor');
 
@@ -33,8 +36,6 @@ esbuild.build({
  * Serve if Dev Env
  */
 
-isDevServer && serve();
-
 async function serve() {
   await servor({
     root: serveDir,
@@ -43,3 +44,5 @@ async function serve() {
 
   console.log(`Serving in localhost:${port}`);
 }
+
+if (isDevServer) serve();
