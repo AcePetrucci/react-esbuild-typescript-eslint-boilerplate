@@ -3,6 +3,11 @@
 
 const esbuild = require('esbuild');
 const servor = require('servor');
+const sassPlugin = require('esbuild-plugin-sass');
+const postCssPlugin = require('@deanc/esbuild-plugin-postcss');
+const autoprefixer = require('autoprefixer');
+
+require('dotenv').config();
 
 /**
  * Set Config Variables
@@ -12,6 +17,14 @@ const isDevServer = process.argv.includes('--dev');
 const port = 8000;
 const outDir = 'dist/build';
 const serveDir = 'dist';
+
+const define = Object.keys(process.env)
+  .filter((env) => env.startsWith('REACT_APP_'))
+  .reduce((acc, inc) => {
+    acc[`process.env.${inc}`] = JSON.stringify(process.env[inc]);
+
+    return acc;
+  }, {});
 
 /**
  * Set ESbuild Config
@@ -27,9 +40,13 @@ esbuild.build({
       if (err) console.error('Watch build failed: ', err);
     },
   },
-  define: {
-    'process.env.NODE_ENV': isDevServer ? '"development"' : '"production"',
-  },
+  define,
+  plugins: [
+    sassPlugin(),
+    postCssPlugin({
+      plugins: [autoprefixer],
+    }),
+  ],
 });
 
 /**
