@@ -8,8 +8,17 @@ import '../assets/scss/app.scss';
 // Routes
 import { Routes } from './config';
 
+// Styled Components
+import { MainWrapper } from './styled';
+
 /**
  * Render the React Bootstrap
  */
 
-ReactDOM.render(<Routes />, document.getElementById('root'));
+ ReactDOM.render(
+  <MainWrapper>
+    <Routes />
+  </MainWrapper>,
+  document.getElementById('root'),
+);
+

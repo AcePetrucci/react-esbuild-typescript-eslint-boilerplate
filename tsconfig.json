@@ -3,6 +3,9 @@
     "esModuleInterop": true,
     "jsx": "react",
     "baseUrl": "./src",
+    "paths": {
+      "themes": ["shared/themes"],
+    }
   },
   "exclude": [
     "/node_modules/**/*",
